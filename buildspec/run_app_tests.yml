@@ -6,8 +6,8 @@ runtime-versions:
 env:
   parameter-store:
     DOCKER_POSTGRES_PASSWORD: "docker-postgres-password"
+    DOCKER_POSTGRES_DATABASE: "epb_test"
     AWS_ACCOUNT_ID: "account-id"
-
 
 phases:
   install:
@@ -20,8 +20,9 @@ phases:
       - npm ci
       - docker run -d -p 5432:5432 --name postgres-test -e POSTGRES_PASSWORD=$DOCKER_POSTGRES_PASSWORD $POSTGRES_IMAGE_URL:latest
       - until docker run --rm --link postgres-test:pg $POSTGRES_IMAGE_URL:latest pg_isready -U postgres -h pg; do sleep 1; done
+      - npm run setup-db
   build:
     commands:
-      - export DATABASE_URL="postgresql://postgres:$DOCKER_POSTGRES_PASSWORD@127.0.0.1/epb_test"
+      - export DATABASE_URL="postgresql://postgres:$DOCKER_POSTGRES_PASSWORD@127.0.0.1/$DOCKER_POSTGRES_DATABASE"
       - echo ">>>>>>>> RUNNING TESTS"
       - npm run test

@@ -13,6 +13,7 @@
     "fmt": "npx standard --fix",
     "lint": "npx standard",
     "test": "jest --forceExit",
+    "setup-db": "node setup-db.js",
     "update-address-base": "npm ci && node address-base.js update -i -v",
     "update-address-base-auto": "npm ci && node address-base.js update -v",
     "update-address-base-specific-version": "npm ci && node address-base.js update -v -s",
@@ -55,8 +56,9 @@
     "async-memoize-one": "^1.1.0",
     "commander": "^9.0.0",
     "csv-stream": "^0.2.0",
+    "dotenv": "^16.4.5",
     "node-fetch": "^2.6.7",
-    "pg": "^8.7.3",
+    "pg": "^8.13.0",
     "pg-promise": "^10.11.1",
     "request": "^2.88.2",
     "unzipper": "kinolaev/node-unzipper#patch-1"
