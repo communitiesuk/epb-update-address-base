@@ -1,0 +1,21 @@
+version: 0.2
+
+runtime-versions:
+  nodejs: 20
+
+env:
+  parameter-store:
+    AWS_ACCOUNT_ID: "account-id"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.eu-west-2.amazonaws.com
+  pre_build:
+    commands:
+      - npm ci
+  build:
+    commands:
+      - npm run test
