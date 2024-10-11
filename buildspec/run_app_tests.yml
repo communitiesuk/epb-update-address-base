@@ -6,7 +6,7 @@ runtime-versions:
 env:
   parameter-store:
     DOCKER_POSTGRES_PASSWORD: "docker-postgres-password"
-    DOCKER_POSTGRES_DATABASE: "epb_test"
+    DOCKER_POSTGRES_DATABASE: "docker-postgres-database"
     AWS_ACCOUNT_ID: "account-id"
 
 phases:
