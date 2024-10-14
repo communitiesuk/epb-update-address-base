@@ -4,7 +4,7 @@ dotenv.config({});
 
 const DB_NAME = process.env.DOCKER_POSTGRES_DATABASE || 'db-name';
 const DB_USER = process.env.DB_USER || 'postgres';
-const DB_HOST = process.env.DB_HOST || 'localhost';
+const DB_HOST = process.env.DB_HOST || '127.0.0.1';
 const DB_PASSWORD = process.env.DOCKER_POSTGRES_PASSWORD || 'password';
 
 async function setupDatabase() {
