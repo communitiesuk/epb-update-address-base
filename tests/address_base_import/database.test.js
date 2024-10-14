@@ -29,7 +29,7 @@ beforeEach(async () => {
 
 afterAll(async () => {
   process.env = EXISTING_ENV
-  await truncateAddressBaseTables()
+  // await truncateAddressBaseTables()
   await disconnectDb()
 })
 
