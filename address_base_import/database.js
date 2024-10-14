@@ -96,7 +96,9 @@ async function writeVersion (versionString) {
 }
 
 async function createEmptyTempAddressTable () {
+  console.log('reached createEmptyTempAddressTable')
   return setUpTempAddressTable(false)
+  console.log('passed createEmptyTempAddressTable')
 }
 
 async function duplicateAddressBaseToTempTable () {
