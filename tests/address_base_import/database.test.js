@@ -18,7 +18,7 @@ const EXISTING_ENV = process.env
 
 beforeAll(() => {
   jest.resetModules()
-  process.env = { ...EXISTING_ENV, DATABASE_URL: `postgresql://postgres${process.env.DOCKER_POSTGRES_PASSWORD ? (':' + process.env.DOCKER_POSTGRES_PASSWORD) : ''}@127.0.0.1/epb_test` }
+  process.env = { ...EXISTING_ENV, DATABASE_URL: `postgresql://postgres${process.env.DOCKER_POSTGRES_PASSWORD ? (':' + process.env.DOCKER_POSTGRES_PASSWORD) : ''}@127.0.0.1/${process.env.DOCKER_POSTGRES_DATABASE}` }
 })
 
 beforeEach(async () => {
