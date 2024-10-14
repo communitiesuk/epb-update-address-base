@@ -24,10 +24,20 @@ async function setupDatabase() {
         console.log(`${DB_NAME} database not found, creating it.`);
         await client.query(`CREATE DATABASE "${DB_NAME}";`);
         console.log(`created database ${DB_NAME}.`);
-        await client.query(`CREATE TABLE address_base (uprn varchar(255), postcode varchar(255), address_line1 varchar(255), address_line2 varchar(255), address_line3 varchar(255), address_line4 varchar(255), town varchar(255));`);
     } else {
-        console.log(`${DB_NAME} database already exists TEST.`);
+        console.log(`${DB_NAME} database already exists.`);
     }
+
+    const table_exists = await client.query(`SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'address_base');`)
+    if (table_exists.rows[0].exists) {
+        console.log(`address_base table already exists`)
+    } else {
+        await client.query(`CREATE TABLE address_base (uprn varchar(255), postcode varchar(255), address_line1 varchar(255), address_line2 varchar(255), address_line3 varchar(255), address_line4 varchar(255), town varchar(255));`);
+        console.log(`created table address_base`)
+    }
+
+    const table_exists2 = await client.query(`SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'address_base');`)
+    console.log(`Results of second table exists - ${table_exists2.rows[0].exists}`)
 
     await client.end();
 }
