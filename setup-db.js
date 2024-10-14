@@ -24,6 +24,7 @@ async function setupDatabase() {
         console.log(`${DB_NAME} database not found, creating it.`);
         await client.query(`CREATE DATABASE "${DB_NAME}";`);
         console.log(`created database ${DB_NAME}.`);
+        await client.query(`CREATE TABLE address_base (uprn string, postcode string, address_line1 string, address_line2 string, address_line3 string, address_line4 string, town string);`);
     } else {
         console.log(`${DB_NAME} database already exists.`);
     }
