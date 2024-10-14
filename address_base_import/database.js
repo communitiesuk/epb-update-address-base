@@ -110,6 +110,7 @@ async function setUpTempAddressTable (asCopy) {
   const createSql = `CREATE TABLE address_base_tmp AS TABLE address_base${asCopy ? '' : ' WITH NO DATA'}`
   await client.query(createSql)
   await ensureTempTableHasPrimaryKey()
+  console.log('we should have tmp')
   client.release()
 }
 
@@ -144,9 +145,11 @@ async function ensureTempTableHasPrimaryKey () {
   try {
     const keyResult = await client.query(checkKeyExistenceSql)
     if (keyResult.rows.length > 0) {
+      console.log('tmp already has primary key')
       return
     }
     await client.query('ALTER TABLE address_base_tmp ADD PRIMARY KEY (uprn)')
+    console.log('primary key added to tmp')
   } finally {
     client.release()
   }
