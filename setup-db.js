@@ -30,7 +30,7 @@ async function setupDatabase() {
     if (table_exists.rows[0].exists) {
         console.log(`address_base table already exists`)
     } else {
-        await client.query(`CREATE TABLE address_base (uprn varchar(255), postcode varchar(255), address_line1 varchar(255), address_line2 varchar(255), address_line3 varchar(255), address_line4 varchar(255), town varchar(255));`);
+        await client.query(`CREATE TABLE address_base (uprn varchar(255) PRIMARY KEY, postcode varchar(255), address_line1 varchar(255), address_line2 varchar(255), address_line3 varchar(255), address_line4 varchar(255), town varchar(255));`);
         console.log(`created table address_base`)
     }
 
