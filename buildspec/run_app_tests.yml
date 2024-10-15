@@ -23,6 +23,6 @@ phases:
       - npm run setup-db
   build:
     commands:
-      - export DATABASE_URL="postgresql://postgres:$DOCKER_POSTGRES_PASSWORD@127.0.0.1/$DOCKER_POSTGRES_DATABASE"
+#      - export DATABASE_URL="postgresql://postgres:$DOCKER_POSTGRES_PASSWORD@127.0.0.1/$DOCKER_POSTGRES_DATABASE"
       - echo ">>>>>>>> RUNNING TESTS"
       - npm run test
