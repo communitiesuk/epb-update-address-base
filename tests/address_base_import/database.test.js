@@ -22,12 +22,12 @@ beforeAll(() => {
   process.env = { ...EXISTING_ENV, DATABASE_URL: `postgresql://postgres${process.env.DOCKER_POSTGRES_PASSWORD ? (':' + process.env.DOCKER_POSTGRES_PASSWORD) : ''}@127.0.0.1/epb_test` }
 })
 
-beforeEach(async () => {
-  jest.resetModules()
-  console.log("beforeEach running")
-  await createEmptyTempAddressTable()
-  await truncateAddressBaseTables()
-})
+// beforeEach(async () => {
+//   jest.resetModules()
+//   console.log("beforeEach running")
+//   await createEmptyTempAddressTable()
+//   await truncateAddressBaseTables()
+// })
 
 afterAll(async () => {
   process.env = EXISTING_ENV
@@ -37,6 +37,12 @@ afterAll(async () => {
 })
 
 describe('when inserting a batch of data', () => {
+  beforeEach(async () => {
+  jest.resetModules()
+  console.log("beforeEach running")
+  await createEmptyTempAddressTable()
+  await truncateAddressBaseTables()
+})
   it('has written one row of data when insertAddressBaseBatch is given a batch of size one', async done => {
     const batch = [{
       uprn: '12345678',
@@ -101,6 +107,10 @@ describe('when updating a batch of data', () => {
   }
 
   beforeEach(async () => {
+    jest.resetModules()
+    console.log("beforeEach running")
+    await createEmptyTempAddressTable()
+    await truncateAddressBaseTables()
     await insertAddressBaseBatch(batch)
     await performUpdateBatch([update])
   })
@@ -161,6 +171,10 @@ describe('when deleting a batch of data', () => {
   const uprnToRemain = '12345679'
 
   beforeEach(async () => {
+    jest.resetModules()
+    console.log("beforeEach running")
+    await createEmptyTempAddressTable()
+    await truncateAddressBaseTables()
     await insertAddressBaseBatch(batch)
     await performDeleteBatch(batch.filter(obj => obj.uprn !== uprnToRemain))
   })
@@ -180,6 +194,12 @@ describe('when deleting a batch of data', () => {
 })
 
 describe('when getting the stored version', () => {
+  beforeEach(async () => {
+  jest.resetModules()
+  console.log("beforeEach running")
+  await createEmptyTempAddressTable()
+  await truncateAddressBaseTables()
+})
   it('returns null if there is no stored version', async done => {
     expect(await storedVersion()).toBeNull()
     done()
@@ -195,6 +215,12 @@ describe('when getting the stored version', () => {
 })
 
 describe('when writing a version', () => {
+  beforeEach(async () => {
+  jest.resetModules()
+  console.log("beforeEach running")
+  await createEmptyTempAddressTable()
+  await truncateAddressBaseTables()
+})
   it('can be observed to have written it with expected format', async done => {
     const versionString = 'E91 March 2022 Update'
     const versionNumber = 91
