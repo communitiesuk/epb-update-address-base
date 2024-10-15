@@ -176,6 +176,8 @@ async function createPgp () {
 }
 
 function connectionOptions () {
+  console.log('Code connecting to db')
+  console.log(process.env.DATABASE_URL)
   return { connectionString: process.env.DATABASE_URL }
 }
 
