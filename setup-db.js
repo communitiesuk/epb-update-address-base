@@ -2,18 +2,16 @@ const { Client } = require('pg')
 const dotenv = require("dotenv");
 dotenv.config({});
 
-const DB_NAME = process.env.DOCKER_POSTGRES_DATABASE || 'db-name';
-const DB_USER = process.env.DB_USER || 'postgres';
-const DB_HOST = process.env.DB_HOST || '127.0.0.1';
-const DB_PASSWORD = process.env.DOCKER_POSTGRES_PASSWORD || 'password';
+const DB_NAME = process.env.DOCKER_POSTGRES_DATABASE || 'epb_test';
+const DATABASE_URL=`postgresql://postgres:${process.env.DOCKER_POSTGRES_PASSWORD}@127.0.0.1/${process.env.DOCKER_POSTGRES_DATABASE}`
+// const DB_USER = process.env.DB_USER || 'postgres';
+// const DB_HOST = process.env.DB_HOST || '127.0.0.1';
+// const DB_PASSWORD = process.env.DOCKER_POSTGRES_PASSWORD || 'password';
 
 async function setupDatabase() {
 
     const client = new Client({
-        host: DB_HOST,
-        user: DB_USER,
-        password: DB_PASSWORD,
-        port: 5432,
+        connectionString: DATABASE_URL
     });
 
     await client.connect();
