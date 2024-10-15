@@ -19,18 +19,22 @@ async function insertAddressBaseBatch (batch) {
   }
 }
 
-async function setUpAddressBase() {
+async function setUpTables() {
   const client = await connect()
-  const table_exists = await client.query(`SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'address_base');`)
-  if (table_exists.rows[0].exists) {
+  const address_base_table_exists = await client.query(`SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'address_base');`)
+  if (address_base_table_exists.rows[0].exists) {
     console.log(`address_base table already exists`)
   } else {
     await client.query(`CREATE TABLE address_base (uprn varchar(255) PRIMARY KEY, postcode varchar(255), address_line1 varchar(255), address_line2 varchar(255), address_line3 varchar(255), address_line4 varchar(255), town varchar(255));`);
     console.log(`created table address_base`)
   }
-
-  const table_exists2 = await client.query(`SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'address_base');`)
-  console.log(`Results of second table exists - ${table_exists2.rows[0].exists}`)
+  const address_base_versions_table_exists = await client.query(`SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'address_base_versions');`)
+  if (address_base_versions_table_exists.rows[0].exists) {
+    console.log(`address_base_versions table already exists`)
+  } else {
+    await client.query(`CREATE TABLE address_base_versions (version_name varchar(255), version_number integer PRIMARY KEY, created_at timestamp);`);
+    console.log(`created table address_base_versions`)
+  }
 }
 
 async function performUpdateBatch (batch) {
@@ -207,4 +211,4 @@ async function endPool () {
   return (await pgPool()).end()
 }
 
-module.exports = { db, disconnectDb, insertAddressBaseBatch, performUpdateBatch, performDeleteBatch, duplicateAddressBaseToTempTable, createEmptyTempAddressTable, storedVersion, writeVersion, dropLegacyTable, swapInNewVersion, endPool, setUpAddressBase }
+module.exports = { db, disconnectDb, insertAddressBaseBatch, performUpdateBatch, performDeleteBatch, duplicateAddressBaseToTempTable, createEmptyTempAddressTable, storedVersion, writeVersion, dropLegacyTable, swapInNewVersion, endPool, setUpTables }
