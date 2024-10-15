@@ -108,9 +108,13 @@ async function duplicateAddressBaseToTempTable () {
 async function setUpTempAddressTable (asCopy) {
   const deleteSql = 'DROP TABLE IF EXISTS address_base_tmp'
   const client = await connect()
+  console.log(client)
+  console.log('we have connected somewhere')
   await client.query(deleteSql)
+  console.log('delete temp table has been run')
   const createSql = `CREATE TABLE address_base_tmp AS TABLE address_base${asCopy ? '' : ' WITH NO DATA'}`
   await client.query(createSql)
+  console.log('create temp table has been run')
   await ensureTempTableHasPrimaryKey()
   console.log('we should have tmp')
   client.release()
