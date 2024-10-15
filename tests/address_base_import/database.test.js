@@ -1,7 +1,7 @@
 const {
   createEmptyTempAddressTable, db, disconnectDb, insertAddressBaseBatch, storedVersion, writeVersion,
   performUpdateBatch,
-  performDeleteBatch
+  performDeleteBatch, setUpAddressBase
 } = require('../../address_base_import/database')
 
 const truncateAddressBaseTables = async () => {
@@ -20,6 +20,7 @@ beforeAll(() => {
   jest.resetModules()
   console.log("beforeAll running")
   process.env = { ...EXISTING_ENV, DATABASE_URL: `postgresql://postgres${process.env.DOCKER_POSTGRES_PASSWORD ? (':' + process.env.DOCKER_POSTGRES_PASSWORD) : ''}@127.0.0.1/epb_test` }
+  setUpAddressBase()
 })
 
 // beforeEach(async () => {
