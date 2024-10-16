@@ -4,7 +4,7 @@ phases:
   pre_build:
     commands:
       - aws --version
-      - bash ./assume_role.sh arn:aws:iam::$AWS_ACCOUNT_ID:role/ci-server this_profile
+      - bash ./buildspec/assume_role.sh arn:aws:iam::$AWS_ACCOUNT_ID:role/ci-server this_profile
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION --profile this_profile | docker login -u AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       
   build:
