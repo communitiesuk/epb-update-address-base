@@ -16,7 +16,7 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-      - docker save -o $DOCKER_IMAGE.tar $DOCKER_IMAGE:latest
+      - docker save -o ebpr-address-base-updater-image.tar ebpr-address-base-updater-image:latest
 
 artifacts:
   files:
