@@ -11,6 +11,6 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker load --input $DOCKER_IMAGE.tar
-      - docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE_URI:latest
+      - docker load --input ebpr-address-base-updater-image.tar
+      - docker tag ebpr-address-base-updater-image:latest $DOCKER_IMAGE_URI:latest
       - docker push $DOCKER_IMAGE_URI:latest
