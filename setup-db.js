@@ -3,15 +3,17 @@ const dotenv = require("dotenv");
 dotenv.config({});
 
 const DB_NAME = process.env.DOCKER_POSTGRES_DATABASE || 'epb_test';
-const DATABASE_URL=`postgresql://postgres:${process.env.DOCKER_POSTGRES_PASSWORD}@127.0.0.1/postgres`
-// const DB_USER = process.env.DB_USER || 'postgres';
-// const DB_HOST = process.env.DB_HOST || '127.0.0.1';
-// const DB_PASSWORD = process.env.DOCKER_POSTGRES_PASSWORD || 'password';
+const DB_USER = process.env.DB_USER || 'postgres';
+const DB_HOST = process.env.DB_HOST || '127.0.0.1';
+const DB_PASSWORD = process.env.DOCKER_POSTGRES_PASSWORD || 'password';
 
 async function setupDatabase() {
 
     const client = new Client({
-        connectionString: DATABASE_URL
+        host: DB_HOST,
+        user: DB_USER,
+        password: DB_PASSWORD,
+        port: 5432,
     });
 
     await client.connect();
@@ -25,17 +27,6 @@ async function setupDatabase() {
     } else {
         console.log(`${DB_NAME} database already exists.`);
     }
-
-    const table_exists = await client.query(`SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'address_base');`)
-    if (table_exists.rows[0].exists) {
-        console.log(`address_base table already exists`)
-    } else {
-        await client.query(`CREATE TABLE address_base (uprn varchar(255) PRIMARY KEY, postcode varchar(255), address_line1 varchar(255), address_line2 varchar(255), address_line3 varchar(255), address_line4 varchar(255), town varchar(255));`);
-        console.log(`created table address_base`)
-    }
-
-    const table_exists2 = await client.query(`SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'address_base');`)
-    console.log(`Results of second table exists - ${table_exists2.rows[0].exists}`)
 
     await client.end();
 }

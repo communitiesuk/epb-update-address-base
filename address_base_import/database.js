@@ -114,9 +114,7 @@ async function writeVersion (versionString) {
 }
 
 async function createEmptyTempAddressTable () {
-  console.log('reached createEmptyTempAddressTable')
   return setUpTempAddressTable(false)
-  console.log('passed createEmptyTempAddressTable')
 }
 
 async function duplicateAddressBaseToTempTable () {
@@ -126,15 +124,10 @@ async function duplicateAddressBaseToTempTable () {
 async function setUpTempAddressTable (asCopy) {
   const deleteSql = 'DROP TABLE IF EXISTS address_base_tmp'
   const client = await connect()
-  console.log(client)
-  console.log('we have connected somewhere')
   await client.query(deleteSql)
-  console.log('delete temp table has been run')
   const createSql = `CREATE TABLE address_base_tmp AS TABLE address_base${asCopy ? '' : ' WITH NO DATA'}`
   await client.query(createSql)
-  console.log('create temp table has been run')
   await ensureTempTableHasPrimaryKey()
-  console.log('we should have tmp')
   client.release()
 }
 
@@ -169,11 +162,9 @@ async function ensureTempTableHasPrimaryKey () {
   try {
     const keyResult = await client.query(checkKeyExistenceSql)
     if (keyResult.rows.length > 0) {
-      console.log('tmp already has primary key')
       return
     }
     await client.query('ALTER TABLE address_base_tmp ADD PRIMARY KEY (uprn)')
-    console.log('primary key added to tmp')
   } finally {
     client.release()
   }
@@ -198,8 +189,6 @@ async function createPgp () {
 }
 
 function connectionOptions () {
-  console.log('Code connecting to db')
-  console.log(process.env.DATABASE_URL)
   return { connectionString: process.env.DATABASE_URL }
 }
 
