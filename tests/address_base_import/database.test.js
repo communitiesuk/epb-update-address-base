@@ -18,7 +18,6 @@ const EXISTING_ENV = process.env
 
 beforeAll(() => {
   jest.resetModules()
-  console.log("beforeAll running")
   process.env = { ...EXISTING_ENV, DATABASE_URL: `postgresql://postgres${process.env.DOCKER_POSTGRES_PASSWORD ? (':' + process.env.DOCKER_POSTGRES_PASSWORD) : ''}@127.0.0.1/epb_test` }
   setUpTables()
 })
@@ -32,33 +31,32 @@ beforeAll(() => {
 
 afterAll(async () => {
   process.env = EXISTING_ENV
-  console.log("afterAll running")
-  // await truncateAddressBaseTables()
+  await truncateAddressBaseTables()
   await disconnectDb()
 })
 
 describe('when inserting a batch of data', () => {
-  beforeEach(async () => {
-  jest.resetModules()
-  console.log("beforeEach running")
-  await createEmptyTempAddressTable()
-  await truncateAddressBaseTables()
-})
-  it('has written one row of data when insertAddressBaseBatch is given a batch of size one', async done => {
-    const batch = [{
-      uprn: '12345678',
-      postcode: 'AB1 1AW',
-      address_line1: '6 House Lane',
-      address_line2: 'Anyvillage',
-      address_line3: null,
-      address_line4: null,
-      town: 'Anytown',
-      country_code: 'E',
-      classification_code: 'RD06',
-      address_type: 'Delivery point'
-    }]
-    await insertAddressBaseBatch(batch)
+  const batch = [{
+    uprn: '12345678',
+    postcode: 'AB1 1AW',
+    address_line1: '6 House Lane',
+    address_line2: 'Anyvillage',
+    address_line3: null,
+    address_line4: null,
+    town: 'Anytown',
+    country_code: 'E',
+    classification_code: 'RD06',
+    address_type: 'Delivery point'
+  }]
 
+  beforeEach(async () => {
+    jest.resetModules()
+    await createEmptyTempAddressTable()
+    await truncateAddressBaseTables()
+    await insertAddressBaseBatch(batch)
+  })
+
+  it('has written one row of data when insertAddressBaseBatch is given a batch of size one', async done => {
     const query = 'SELECT * FROM address_base_tmp WHERE uprn=\'12345678\''
     const result = await (await db()).query(query)
 
@@ -109,7 +107,6 @@ describe('when updating a batch of data', () => {
 
   beforeEach(async () => {
     jest.resetModules()
-    console.log("beforeEach running")
     await createEmptyTempAddressTable()
     await truncateAddressBaseTables()
     await insertAddressBaseBatch(batch)
@@ -173,7 +170,6 @@ describe('when deleting a batch of data', () => {
 
   beforeEach(async () => {
     jest.resetModules()
-    console.log("beforeEach running")
     await createEmptyTempAddressTable()
     await truncateAddressBaseTables()
     await insertAddressBaseBatch(batch)
@@ -196,11 +192,11 @@ describe('when deleting a batch of data', () => {
 
 describe('when getting the stored version', () => {
   beforeEach(async () => {
-  jest.resetModules()
-  console.log("beforeEach running")
-  await createEmptyTempAddressTable()
-  await truncateAddressBaseTables()
-})
+    jest.resetModules()
+    await createEmptyTempAddressTable()
+    await truncateAddressBaseTables()
+  })
+
   it('returns null if there is no stored version', async done => {
     expect(await storedVersion()).toBeNull()
     done()
@@ -217,11 +213,11 @@ describe('when getting the stored version', () => {
 
 describe('when writing a version', () => {
   beforeEach(async () => {
-  jest.resetModules()
-  console.log("beforeEach running")
-  await createEmptyTempAddressTable()
-  await truncateAddressBaseTables()
-})
+    jest.resetModules()
+    await createEmptyTempAddressTable()
+    await truncateAddressBaseTables()
+  })
+
   it('can be observed to have written it with expected format', async done => {
     const versionString = 'E91 March 2022 Update'
     const versionNumber = 91
