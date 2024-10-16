@@ -1,7 +1,7 @@
 {
-  "name": "epb-register-api",
+  "name": "ebp-address-base-updater",
   "version": "1.0.0",
-  "description": "Node scripts to support the Energy Performance of Buildings Register API application",
+  "description": "Node scripts to update the address base copy the Energy Performance of Buildings Register service uses",
   "main": "index.js",
   "directories": {
     "lib": "lib"
