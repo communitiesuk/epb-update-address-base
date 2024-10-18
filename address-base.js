@@ -312,8 +312,6 @@ async function specifyVersionAction (versionString) {
 }
 
 async function getVersionAction() {
-  output(osLogo(), 'EPBR AddressBase Plus get version script', '')
-
   const version = await storedVersion()
 
   console.log(`The currently stored version is ${version}`)
