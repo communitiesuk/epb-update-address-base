@@ -36,6 +36,11 @@ program
   .argument('<versionString>', 'the new version string to specify, e.g. "E90 November 2021 Update"')
   .action(specifyVersionAction)
 
+program
+    .command('get-version')
+    .description('tells you the current stored version')
+    .action(getVersionAction)
+
 program.parse()
 
 let start = new Date()
@@ -304,6 +309,15 @@ async function specifyVersionAction (versionString) {
   function output (...messages) {
     messages.forEach(message => console.log(message))
   }
+}
+
+async function getVersionAction() {
+  output(osLogo(), 'EPBR AddressBase Plus get version script', '')
+
+  const version = await storedVersion()
+
+  console.log(`The currently stored version is ${version}`)
+
 }
 
 function addressBaseHeaders () {
