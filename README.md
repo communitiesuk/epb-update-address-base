@@ -22,3 +22,9 @@ If not already set up, you will need an address_base table and an address_base_v
 For your initial set up, use `full-address-base-reload` on an empty address_base table.
 
 For normal operating, use `update-address-base-auto` for your updates.
+
+## Test
+
+To run the tes suit locally use the following cmd:
+
+`npm run test`
