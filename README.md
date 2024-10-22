@@ -1,8 +1,26 @@
 # epb-update-address-base
-This repo contains scripts to get updates from address base.
+This repo contains scripts to load data provided by [Ordnance Survey address base](https://www.ordnancesurvey.co.uk/products/addressbase)  
+
+## Prerequisites
+
+* [Node.js](https://nodejs.org/en/download/package-manager)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Ordnance Survey API Key](https://www.ordnancesurvey.co.uk/products/addressbase#get)
+
+## Running the Address base updates locally
+Make sure you have the latest npm packages using
+
+`npm ci`
 
 You need to provide the environment variable `DATABASE_URL` which is a connection string to your database.
 You also need to provide your API key for the OS API as an environment variable `OS_DATA_HUB_API_KEY`
+
+## Database setup
+If you do not have a database set up use the following command to create it
+
+`npm run setup-db`
+
+## Address base update process
 
 The process checks against data packages set up on your account (this was written for the EPBR team so checks for packages marked with a prefix of EPBR in the name - update this for your own account (see the function `isEpbrPackage`)) for both the AddressBase Plus and AddressBase Plus - Islands products (these cover Great Britain, and Northern Ireland/ Isle of Man/ Channel Islands respectively). 
 If an update is available for both of these products, the process will perform fetches of the data for the new versions of these products and apply them to the database you connect to (for the EPBR team this is the register database). 
@@ -19,12 +37,14 @@ If not already set up, you will need an address_base table and an address_base_v
 - `specify-address-base-version` Allows you to change which address base version is stored as the current latest version - does not actually update the data to match. Use with care.
 - `get-address-base-version` Tells you which is the latest version to have been added to your database
 
-For your initial set up, use `full-address-base-reload` on an empty address_base table.
+For your initial set up, use `full-address-base-reload` on an empty address_base table, e.g 
+
+`npm run full-address-base-reload`
 
 For normal operating, use `update-address-base-auto` for your updates.
 
 ## Test
 
-To run the tes suit locally use the following cmd:
+To run the test suit locally use the following cmd:
 
 `npm run test`
