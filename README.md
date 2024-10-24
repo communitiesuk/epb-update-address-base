@@ -28,13 +28,18 @@ The import works by streaming in data from the API, so no interstitial disk stor
 
 If not already set up, you will need an address_base table and an address_base_versions table - you can set these up using the `setUpTables` script that the tests use found in `database.js`
 
+## Address base versions
+OS release updated versions (epochs) of their data every 6 weeks. 
+The specific version can be [found here](https://www.ordnancesurvey.co.uk/products/addressbase-epoch-dates)
+
+
 ## Available scripts
 
 - `update-address-base` Checks what the last version added to your database was, and adds the deltas from address base in order
 - `update-address-base-auto` Does the above, but doesn't require manual approval to go ahead - useful for an automated process.
 - `update-address-base-specific-version` Adds a specific version from address base. Useful if you want to add them one by one your self. To use it set an environment variable named `VERSION_NUMBER` with an integer.
 - `full-address-base-reload` Gets the full update for the current version - the other scripts use 'change only update' which is the delta from the previous version. This uses the full set of data for that version. Good for first set up.
-- `specify-address-base-version` Allows you to change which address base version is stored as the current latest version - does not actually update the data to match. Use with care.
+- `specify-address-base-version` Allows you to change which address base version is stored as the current latest version - e.g. `npm run specify-address-base-version 'E112 August 2024 Update'` does not actually update the data to match. Use with care. 
 - `get-address-base-version` Tells you which is the latest version to have been added to your database
 
 For your initial set up, use `full-address-base-reload` on an empty address_base table, e.g 
@@ -48,3 +53,11 @@ For normal operating, use `update-address-base-auto` for your updates.
 To run the test suit locally use the following cmd:
 
 `npm run test`
+
+## Run import locally
+You will need a postgres database to run the address base import. The import itself will create the tables in needs to run
+
+`export DATABASE_URL=postgresql://localhost:5432/epb_development
+export OS_DATA_HUB_API_KEY={API_KEY} 
+npm run full-address-base-reload
+`
