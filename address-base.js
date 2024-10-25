@@ -302,7 +302,9 @@ async function specifyVersionAction (versionString) {
     return
   }
 
-  await writeVersion(versionString)
+  await writeVersion(versionString).catch((err) => {
+    console.error(err);
+  });
 
   console.log(`The version "${versionString}" has been set up on the AddressBase data store.`)
 
