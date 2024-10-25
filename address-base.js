@@ -315,10 +315,9 @@ async function specifyVersionAction (versionString) {
 }
 
 async function getVersionAction() {
-  const version = await storedVersion()
-
+  let version;
   try {
-    const version = await storedVersion()
+    version = await storedVersion()
   } catch (e) {
     console.error(e);
     captureSentryException(e)
