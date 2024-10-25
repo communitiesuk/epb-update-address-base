@@ -304,6 +304,7 @@ async function specifyVersionAction (versionString) {
 
   await writeVersion(versionString).catch((err) => {
     console.error(err);
+    captureSentryException(err)
   });
 
   console.log(`The version "${versionString}" has been set up on the AddressBase data store.`)
@@ -316,7 +317,14 @@ async function specifyVersionAction (versionString) {
 async function getVersionAction() {
   const version = await storedVersion()
 
-  console.log(`The currently stored version is ${version}`)
+  try {
+    const version = await storedVersion()
+  } catch (e) {
+    console.error(e);
+    captureSentryException(e)
+  } finally {
+    console.log(`The currently stored version is ${version}`);
+  }
 
 }
 
