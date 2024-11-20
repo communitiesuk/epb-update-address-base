@@ -60,9 +60,9 @@
     "csv-stream": "^0.2.0",
     "dotenv": "^16.4.5",
     "node-fetch": "^2.6.7",
+    "got": "^11",
     "pg": "^8.13.0",
     "pg-promise": "^10.11.1",
-    "request": "^2.88.2",
     "unzipper": "kinolaev/node-unzipper#patch-1"
   },
   "jest": {

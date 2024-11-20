@@ -57,7 +57,8 @@ To run the test suit locally use the following cmd:
 ## Run import locally
 You will need a postgres database to run the address base import. The import itself will create the tables in needs to run
 
-`export DATABASE_URL=postgresql://localhost:5432/epb_development
+```
+export DATABASE_URL=postgresql://localhost:5432/epb_development
 export OS_DATA_HUB_API_KEY={API_KEY} 
 npm run full-address-base-reload
-`
+```

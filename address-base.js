@@ -1,6 +1,6 @@
 const readline = require('readline')
 const { Command } = require('commander')
-const request = require('request')
+const got = require('got')
 const unzipper = require('unzipper')
 const csv = require('csv-stream')
 const extractAddress = require('./address_base_import/extract-address')
@@ -20,6 +20,12 @@ initSentry()
 const transaction = startSentryTransaction()
 
 const program = new Command()
+
+const requestLib = options => {
+  const { url, headers } = options
+  const stream = got.stream(url, { headers })
+  return Object.assign(stream, { abort: stream.destroy })
+}
 
 program
   .command('update')
@@ -245,10 +251,10 @@ async function updateAction ({ interactive, verbose, forceFull, useSpecificVersi
     }
   }
 
-  function fetchDirectory (zipUrl) {
+function fetchDirectory (zipUrl) {
     try {
       return unzipper.Open.url(
-        request,
+        requestLib,
         {
           url: zipUrl,
           callback: (_error, _response, _body) => {
