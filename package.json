@@ -65,6 +65,9 @@
     "pg-promise": "^10.11.1",
     "unzipper": "kinolaev/node-unzipper#patch-1"
   },
+  "overrides": {
+    "fetch-mock": "^10"
+  },
   "jest": {
     "setupFiles": [
       "<rootDir>/tests/setUpEnv.js"
