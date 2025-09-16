@@ -61,7 +61,7 @@ function hasCertifiableClassification (address) {
 }
 
 function isInCertifiableCountry (address) {
-  return !(['S', 'L', 'M'].includes(address.COUNTRY)) // filter out addresses from Scotland, Channel Islands or Isle of Man
+  return !(['L', 'M'].includes(address.COUNTRY)) // filter out addresses from Scotland, Channel Islands or Isle of Man
 }
 
 module.exports = isCertifiableAddress
