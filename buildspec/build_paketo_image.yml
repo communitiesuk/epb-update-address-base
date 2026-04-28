@@ -11,7 +11,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Paketo image...
       # We use --default-process below to define which entrypoint we want the application to have from the Procfile on the codebase
-      - pack build ebpr-address-base-updater-image --builder paketobuildpacks/builder-jammy-base --buildpack paketo-buildpacks/nodejs --post-buildpack paketo-buildpacks/npm-install@1.1.1 --verbose --clear-cache
+      - pack build ebpr-address-base-updater-image -builder paketobuildpacks/builder-jammy-full:0.3.565 --buildpack paketo-buildpacks/nodejs --verbose --clear-cache
 
   post_build:
     commands:
