@@ -1,7 +1,7 @@
 version: 0.2
 
 runtime-versions:
-  nodejs: 20
+  nodejs: 22
 
 env:
   parameter-store:
