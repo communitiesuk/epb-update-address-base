@@ -189,7 +189,12 @@ async function createPgp () {
 }
 
 function connectionOptions () {
-  return { connectionString: process.env.DATABASE_URL }
+  return {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    },
+  }
 }
 
 async function disconnectDb () {
