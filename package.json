@@ -62,7 +62,7 @@
     "node-fetch": "^2.6.7",
     "got": "^11",
     "pg": "^8.13.0",
-    "pg-promise": "^10.11.1",
+    "pg-promise": "^11.5.5",
     "unzipper": "kinolaev/node-unzipper#patch-1"
   },
   "overrides": {
