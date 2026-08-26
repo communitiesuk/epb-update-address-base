@@ -43,9 +43,9 @@ program
   .action(specifyVersionAction)
 
 program
-    .command('get-version')
-    .description('tells you the current stored version')
-    .action(getVersionAction)
+  .command('get-version')
+  .description('tells you the current stored version')
+  .action(getVersionAction)
 
 program.parse()
 
@@ -251,7 +251,7 @@ async function updateAction ({ interactive, verbose, forceFull, useSpecificVersi
     }
   }
 
-function fetchDirectory (zipUrl) {
+  function fetchDirectory (zipUrl) {
     try {
       return unzipper.Open.url(
         requestLib,
@@ -309,9 +309,9 @@ async function specifyVersionAction (versionString) {
   }
 
   await writeVersion(versionString).catch((err) => {
-    console.error(err);
+    console.error(err)
     captureSentryException(err)
-  });
+  })
 
   console.log(`The version "${versionString}" has been set up on the AddressBase data store.`)
 
@@ -320,17 +320,16 @@ async function specifyVersionAction (versionString) {
   }
 }
 
-async function getVersionAction() {
-  let version;
+async function getVersionAction () {
+  let version
   try {
     version = await storedVersion()
   } catch (e) {
-    console.error(e);
+    console.error(e)
     captureSentryException(e)
   } finally {
-    console.log(`The currently stored version is ${version}`);
+    console.log(`The currently stored version is ${version}`)
   }
-
 }
 
 function addressBaseHeaders () {
