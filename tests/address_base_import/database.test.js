@@ -181,7 +181,6 @@ describe('when deleting a batch of data', () => {
 })
 
 describe('when getting the stored version', () => {
-
   it('returns null if there is no stored version', async done => {
     expect(await storedVersion()).toBeNull()
     done()
@@ -197,7 +196,6 @@ describe('when getting the stored version', () => {
 })
 
 describe('when writing a version', () => {
-
   it('can be observed to have written it with expected format', async done => {
     const versionString = 'E91 March 2022 Update'
     const versionNumber = 91

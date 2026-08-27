@@ -19,21 +19,21 @@ async function insertAddressBaseBatch (batch) {
   }
 }
 
-async function setUpTables() {
+async function setUpTables () {
   const client = await connect()
-  const address_base_table_exists = await client.query(`SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'address_base');`)
-  if (address_base_table_exists.rows[0].exists) {
-    console.log(`address_base table already exists`)
+  const addressBaseTableExists = await client.query('SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = \'address_base\');')
+  if (addressBaseTableExists.rows[0].exists) {
+    console.log('address_base table already exists')
   } else {
-    await client.query(`CREATE TABLE address_base (uprn varchar(255) PRIMARY KEY, postcode varchar(255), address_line1 varchar(255), address_line2 varchar(255), address_line3 varchar(255), address_line4 varchar(255), town varchar(255), classification_code varchar(255), address_type varchar(255), country_code varchar(1));`);
-    console.log(`created table address_base`)
+    await client.query('CREATE TABLE address_base (uprn varchar(255) PRIMARY KEY, postcode varchar(255), address_line1 varchar(255), address_line2 varchar(255), address_line3 varchar(255), address_line4 varchar(255), town varchar(255), classification_code varchar(255), address_type varchar(255), country_code varchar(1));')
+    console.log('created table address_base')
   }
-  const address_base_versions_table_exists = await client.query(`SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'address_base_versions');`)
-  if (address_base_versions_table_exists.rows[0].exists) {
-    console.log(`address_base_versions table already exists`)
+  const addressBaseVersionsTableExists = await client.query('SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = \'address_base_versions\');')
+  if (addressBaseVersionsTableExists.rows[0].exists) {
+    console.log('address_base_versions table already exists')
   } else {
-    await client.query(`CREATE TABLE address_base_versions (version_name varchar(255), version_number integer PRIMARY KEY, created_at timestamp);`);
-    console.log(`created table address_base_versions`)
+    await client.query('CREATE TABLE address_base_versions (version_name varchar(255), version_number integer PRIMARY KEY, created_at timestamp);')
+    console.log('created table address_base_versions')
   }
 }
 
@@ -189,7 +189,7 @@ async function createPgp () {
 }
 
 function connectionOptions () {
-  return  !process.env.APP_ENV ? {connectionString: process.env.DATABASE_URL} : {connectionString: process.env.DATABASE_URL,  ssl: { rejectUnauthorized: false },}
+  return !process.env.APP_ENV ? { connectionString: process.env.DATABASE_URL } : { connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } }
 }
 
 async function disconnectDb () {
