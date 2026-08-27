@@ -36,7 +36,7 @@
   "devDependencies": {
     "fetch-mock-jest": "^1.5.1",
     "jest": "^28.1.0",
-    "jest-jasmine2": "^28.1.0",
+    "jest-jasmine2": "^30.4.2",
     "standard": "^16.0.4"
   },
   "standard": {
