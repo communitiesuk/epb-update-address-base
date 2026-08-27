@@ -58,7 +58,7 @@
     "async-memoize-one": "^1.1.0",
     "commander": "^9.0.0",
     "csv-stream": "^0.2.0",
-    "dotenv": "^16.4.5",
+    "dotenv": "^17.4.2",
     "node-fetch": "^2.6.7",
     "got": "^11",
     "pg": "^8.13.0",
