@@ -59,7 +59,7 @@
     "commander": "^9.0.0",
     "csv-stream": "^0.2.0",
     "dotenv": "^17.4.2",
-    "node-fetch": "^2.6.7",
+    "node-fetch": "^3.3.2",
     "got": "^11",
     "pg": "^8.13.0",
     "pg-promise": "^12.7.0",
