@@ -1,0 +1,25 @@
+{
+  "id": "6870766",
+  "url": "https://api.os.uk/downloads/v1/dataPackages/0040160116/versions/6870766?key=apikey1234",
+  "createdOn": "2026-08-06",
+  "reason": "UPDATE",
+  "supplyType": "Change Only Update",
+  "productVersion": "AddressBase Plus 03.07.2026",
+  "format": "CSV",
+  "dataPackageUrl": "https://api.os.uk/downloads/v1/dataPackages/0040160116?key=apikey1234",
+  "previousVersionUrl": "https://api.os.uk/downloads/v1/dataPackages/0040160116/versions/6852094?key=apikey1234",
+  "downloads": [
+    {
+      "fileName": "6870766-Order_Details.txt",
+      "url": "https://api.os.uk/downloads/v1/dataPackages/0040160116/versions/6870766/downloads?fileName=6870766-Order_Details.txt&key=apikey1234",
+      "size": 937,
+      "md5": "1b0eb4ede038864c0a6fb885821ba458"
+    },
+    {
+      "fileName": "ABPLIS_CSV_COU.zip",
+      "url": "https://api.os.uk/downloads/v1/dataPackages/0040160116/versions/6870766/downloads?fileName=ABPLIS_CSV_COU.zip&key=apikey1234",
+      "size": 499328,
+      "md5": "0a4cacd3d460ba2843163923ce56a1b7"
+    }
+  ]
+}

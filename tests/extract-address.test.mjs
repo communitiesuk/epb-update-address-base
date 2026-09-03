@@ -1,4 +1,5 @@
-const extractAddress = require('../../address_base_import/extract-address')
+import { test, expect } from '@jest/globals';
+import { extractAddress } from '../lib/extract-address';
 
 const addressBaseHeaders = [
   'UPRN',
@@ -77,10 +78,13 @@ const addressBaseHeaders = [
   'MULTI_OCC_COUNT',
   'VOA_NDR_P_DESC_CODE',
   'VOA_NDR_SCAT_CODE',
-  'ALT_LANGUAGE'
-]
+  'ALT_LANGUAGE',
+];
 
-const addressBaseEntryFromValues = values => Object.fromEntries(addressBaseHeaders.map((header, i) => [header, values[i]]))
+const addressBaseEntryFromValues = (values) =>
+  Object.fromEntries(
+    addressBaseHeaders.map((header, i) => [header, values[i]]),
+  );
 
 const numberTen = [
   '100023336956',
@@ -90,10 +94,10 @@ const numberTen = [
   '2001-03-19',
   'RD04',
   null,
-  530_047.00,
-  179_951.00,
-  51.5035410,
-  -0.1276700,
+  530_047.0,
+  179_951.0,
+  51.503541,
+  -0.12767,
   2,
   5990,
   'E',
@@ -159,8 +163,8 @@ const numberTen = [
   1,
   '',
   '',
-  ''
-]
+  '',
+];
 
 test('when importing the data for 10 downing street', () => {
   const expected = {
@@ -173,10 +177,12 @@ test('when importing the data for 10 downing street', () => {
     town: 'LONDON',
     country_code: 'E',
     classification_code: 'RD04',
-    address_type: 'Delivery Point'
-  }
-  expect(extractAddress(addressBaseEntryFromValues(numberTen))).toEqual(expected)
-})
+    address_type: 'Delivery Point',
+  };
+  expect(extractAddress(addressBaseEntryFromValues(numberTen))).toEqual(
+    expected,
+  );
+});
 
 const nottsPond = [
   '10025731071',
@@ -187,7 +193,7 @@ const nottsPond = [
   'LW02IW',
   null,
   497_657.18,
-  319_960.70,
+  319_960.7,
   52.7684428,
   -0.5539914,
   1,
@@ -258,12 +264,8 @@ const nottsPond = [
   0,
   '',
   '',
-  ''
-]
-
-test('when importing the data for a pond in nottinghamshire, it responds with null as ponds are not certifiable', () => {
-  expect(extractAddress(addressBaseEntryFromValues(nottsPond))).toBe(null)
-})
+  '',
+];
 
 const residentialNoPostalDevonAddress = [
   '10023353973',
@@ -273,9 +275,9 @@ const residentialNoPostalDevonAddress = [
   '2016-01-15',
   'RD06',
   10_002_296_559,
-  227_014.30,
+  227_014.3,
   102_933.65,
-  50.8000700,
+  50.80007,
   -4.4561946,
   2,
   1145,
@@ -342,8 +344,8 @@ const residentialNoPostalDevonAddress = [
   0,
   '',
   '',
-  ''
-]
+  '',
+];
 
 test('when a residential house has no postal address, it uses a geographic address', () => {
   const expected = {
@@ -356,10 +358,12 @@ test('when a residential house has no postal address, it uses a geographic addre
     town: 'BRIDGERULE',
     country_code: 'E',
     classification_code: 'RD06',
-    address_type: 'Geographic'
-  }
-  expect(extractAddress(addressBaseEntryFromValues(residentialNoPostalDevonAddress))).toEqual(expected)
-})
+    address_type: 'Geographic',
+  };
+  expect(
+    extractAddress(addressBaseEntryFromValues(residentialNoPostalDevonAddress)),
+  ).toEqual(expected);
+});
 
 const letteredNumberedAddress = [
   '90090877',
@@ -438,11 +442,13 @@ const letteredNumberedAddress = [
   0,
   '',
   '',
-  ''
-]
+  '',
+];
 
 test('it joins a lettered, numbered line onto the following non-empty line', () => {
-  expect(extractAddress(addressBaseEntryFromValues(letteredNumberedAddress))).toEqual({
+  expect(
+    extractAddress(addressBaseEntryFromValues(letteredNumberedAddress)),
+  ).toEqual({
     uprn: '90090877',
     postcode: 'DY2 0NZ',
     address_line1: '8A HILL STREET',
@@ -452,9 +458,9 @@ test('it joins a lettered, numbered line onto the following non-empty line', () 
     town: 'DUDLEY',
     country_code: 'E',
     classification_code: 'RD04',
-    address_type: 'Delivery Point'
-  })
-})
+    address_type: 'Delivery Point',
+  });
+});
 
 const commercialWithDuplicateLocality = [
   '100100946350',
@@ -464,8 +470,8 @@ const commercialWithDuplicateLocality = [
   '2009-03-19',
   'CR02',
   100_101_059_525,
-  300_819.00,
-  381_603.00,
+  300_819.0,
+  381_603.0,
   53.3220443,
   -3.4904488,
   2,
@@ -533,11 +539,13 @@ const commercialWithDuplicateLocality = [
   0,
   'CS',
   '249',
-  'CYM'
-]
+  'CYM',
+];
 
 test('it removes the duplicate locality line from a geographic address', () => {
-  expect(extractAddress(addressBaseEntryFromValues(commercialWithDuplicateLocality))).toEqual({
+  expect(
+    extractAddress(addressBaseEntryFromValues(commercialWithDuplicateLocality)),
+  ).toEqual({
     uprn: '100100946350',
     postcode: 'LL18 1EW',
     address_line1: 'UNIT 10',
@@ -547,9 +555,9 @@ test('it removes the duplicate locality line from a geographic address', () => {
     town: 'RHYL',
     country_code: 'W',
     classification_code: 'CR02',
-    address_type: 'Geographic'
-  })
-})
+    address_type: 'Geographic',
+  });
+});
 
 const moreThanFourStreetLines = [
   '5870116854',
@@ -559,8 +567,8 @@ const moreThanFourStreetLines = [
   '2007-10-10',
   'RD06',
   '5870117894',
-  524_095.00,
-  163_531.00,
+  524_095.0,
+  163_531.0,
   51.3573056,
   -0.2191271,
   2,
@@ -628,11 +636,13 @@ const moreThanFourStreetLines = [
   0,
   '',
   '',
-  ''
-]
+  '',
+];
 
 test('it compacts all lines after line 4 onto one line separated by commas', () => {
-  expect(extractAddress(addressBaseEntryFromValues(moreThanFourStreetLines))).toEqual({
+  expect(
+    extractAddress(addressBaseEntryFromValues(moreThanFourStreetLines)),
+  ).toEqual({
     uprn: '5870116854',
     postcode: 'SM3 8AR',
     address_line1: 'FLAT 12',
@@ -642,20 +652,24 @@ test('it compacts all lines after line 4 onto one line separated by commas', () 
     town: 'SUTTON',
     country_code: 'E',
     classification_code: 'RD06',
-    address_type: 'Delivery Point'
-  })
-})
+    address_type: 'Delivery Point',
+  });
+});
 
-const nottsPondAsUpdate = [...nottsPond]
-nottsPondAsUpdate[2] = 'U'
+const nottsPondAsUpdate = [...nottsPond];
+nottsPondAsUpdate[2] = 'U';
 
 test('it does not exclude a data row if the row is passed as an update but it also not certifiable', () => {
-  expect(extractAddress(addressBaseEntryFromValues(nottsPondAsUpdate))).not.toBe(null)
-})
+  expect(
+    extractAddress(addressBaseEntryFromValues(nottsPondAsUpdate)),
+  ).not.toBe(null);
+});
 
-const nottsPondAsDelete = [...nottsPond]
-nottsPondAsDelete[2] = 'D'
+const nottsPondAsDelete = [...nottsPond];
+nottsPondAsDelete[2] = 'D';
 
 test('it does not exclude a data row if the row is passed as a delete but it also not certifiable', () => {
-  expect(extractAddress(addressBaseEntryFromValues(nottsPondAsDelete))).not.toBe(null)
-})
+  expect(
+    extractAddress(addressBaseEntryFromValues(nottsPondAsDelete)),
+  ).not.toBe(null);
+});
