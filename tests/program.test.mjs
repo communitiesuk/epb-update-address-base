@@ -2,8 +2,10 @@ import { Console } from 'node:console';
 import { PassThrough } from 'node:stream';
 import { beforeEach, jest, describe, test, expect } from '@jest/globals';
 import dedent from 'dedent';
+import { http, HttpResponse } from 'msw';
 import { createProgram } from '../lib/program.mjs';
 import { resetDatabase, runQuery } from './support/database-helpers.mjs';
+import { server } from './support/mock-server.mjs';
 
 beforeEach(() => resetDatabase());
 
@@ -271,6 +273,43 @@ describe('update', () => {
     ).toEqual([{ table_name: null }]);
   });
 
+  test('sends a slack message if it updates', async () => {
+    jest.replaceProperty(process, 'env', {
+      ...process.env,
+      STAGE: 'test',
+      EPB_TEAM_SLACK_URL: 'http://slack.invalid',
+    });
+    const slackMessages = [];
+
+    server.use(
+      http.post('http://slack.invalid', async ({ request }) => {
+        const body = await request.json();
+        slackMessages.push(body.text);
+        return HttpResponse.json({ ok: true });
+      }),
+    );
+
+    await captureLogs(async () => {
+      const program = createProgram();
+      await program.parseAsync(['install', 'E127 May 2026 Update'], {
+        from: 'user',
+      });
+    });
+
+    expect(slackMessages).toEqual([]);
+
+    await captureLogs(async () => {
+      const program = createProgram();
+      await program.parseAsync(['update'], {
+        from: 'user',
+      });
+    });
+
+    expect(slackMessages).toEqual([
+      '📍 Updated test Address Base to version: AddressBase Plus 03.07.2026',
+    ]);
+  });
+
   test('errors if no versions are installed', async () => {
     const exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
 
@@ -330,6 +369,78 @@ describe('update', () => {
     expect(logs.trim()).toEqual(dedent`
       No updates to apply
     `);
+  });
+
+  test('does not send a slack message if it does not update', async () => {
+    jest.replaceProperty(process, 'env', {
+      ...process.env,
+      STAGE: 'test',
+      EPB_TEAM_SLACK_URL: 'http://slack.invalid',
+    });
+    const slackMessages = [];
+
+    server.use(
+      http.post('http://slack.invalid', async ({ request }) => {
+        const body = await request.json();
+        slackMessages.push(body.text);
+        return HttpResponse.json({ ok: true });
+      }),
+    );
+
+    await captureLogs(async () => {
+      const program = createProgram();
+      await program.parseAsync(['install'], {
+        from: 'user',
+      });
+    });
+
+    await captureLogs(async () => {
+      const program = createProgram();
+      await program.parseAsync(['update'], {
+        from: 'user',
+      });
+    });
+
+    expect(slackMessages).toEqual([]);
+  });
+
+  test('sends a slack message if it errors', async () => {
+    await captureLogs(async () => {
+      const program = createProgram();
+      await program.parseAsync(['install'], {
+        from: 'user',
+      });
+    });
+
+    jest.replaceProperty(process, 'env', {
+      ...process.env,
+      STAGE: 'test',
+      EPB_TEAM_SLACK_URL: 'http://slack.invalid',
+      OS_DATA_HUB_API_KEY: 'BADKEY',
+    });
+    const slackMessages = [];
+
+    server.use(
+      http.post('http://slack.invalid', async ({ request }) => {
+        const body = await request.json();
+        slackMessages.push(body.text);
+        return HttpResponse.json({ ok: true });
+      }),
+    );
+
+    const exitSpy = jest.spyOn(process, 'exit').mockImplementation(() => {});
+
+    await captureLogs(async () => {
+      const program = createProgram();
+      await program.parseAsync(['update'], {
+        from: 'user',
+      });
+    });
+
+    expect(slackMessages).toEqual([
+      '🔥 Updating test Address Base errored: status: 403: {"message":"Invalid ApiKey"}',
+    ]);
+    expect(exitSpy).toHaveBeenCalledWith(1);
   });
 });
 
