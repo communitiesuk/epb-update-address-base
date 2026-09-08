@@ -1,9 +1,10 @@
-const isCertifiableAddress = require('../../address_base_import/filter-by-classification')
+import { describe, test, expect } from '@jest/globals';
+import { isCertifiableAddress } from '../lib/filter-by-classification';
 
 const defaultGoodEntry = {
   CLASS: 'RD02', // detached house
-  COUNTRY: 'E' // England
-}
+  COUNTRY: 'E', // England
+};
 
 const countries = {
   E: 'England',
@@ -12,8 +13,8 @@ const countries = {
   N: 'Northern Ireland',
   L: 'the Channel Islands',
   M: 'the Isle of Man',
-  J: 'an unassigned country'
-}
+  J: 'an unassigned country',
+};
 
 describe('filter out non-EPC related location classifications', () => {
   Object.entries({
@@ -61,13 +62,15 @@ describe('filter out non-EPC related location classifications', () => {
     ZV01: true, // Cellar
     ZW99: true, // Place of worship
     '': true,
-    B: true
+    B: true,
   }).forEach(([classCode, isAccepted]) => {
-    it(`when given an AddressBase entry with a class that starts with ${classCode}`, () => {
-      expect(isCertifiableAddress({ ...defaultGoodEntry, ...{ CLASS: classCode } })).toBe(isAccepted)
-    })
-  })
-})
+    test(`when given an AddressBase entry with a class that starts with ${classCode}`, () => {
+      expect(
+        isCertifiableAddress({ ...defaultGoodEntry, ...{ CLASS: classCode } }),
+      ).toBe(isAccepted);
+    });
+  });
+});
 
 describe('filter out addresses', () => {
   Object.entries({
@@ -77,10 +80,15 @@ describe('filter out addresses', () => {
     N: true, // Northern Ireland
     L: false, // Channel Islands
     M: false, // Isle of Man
-    J: true // an unassigned country
+    J: true, // an unassigned country
   }).forEach(([countryCode, isAccepted]) => {
-    it(`when given an AddressBase entry with a country code denoting it is in ${countries[countryCode]}`, () => {
-      expect(isCertifiableAddress({ ...defaultGoodEntry, ...{ COUNTRY: countryCode } })).toBe(isAccepted)
-    })
-  })
-})
+    test(`when given an AddressBase entry with a country code denoting it is in ${countries[countryCode]}`, () => {
+      expect(
+        isCertifiableAddress({
+          ...defaultGoodEntry,
+          ...{ COUNTRY: countryCode },
+        }),
+      ).toBe(isAccepted);
+    });
+  });
+});

@@ -1,0 +1,25 @@
+{
+  "id": "6870746",
+  "url": "https://api.os.uk/downloads/v1/dataPackages/0040146690/versions/6870746?key=apikey1234",
+  "createdOn": "2026-08-06",
+  "reason": "UPDATE",
+  "supplyType": "Full",
+  "productVersion": "AddressBase Plus 03.07.2026",
+  "format": "CSV",
+  "dataPackageUrl": "https://api.os.uk/downloads/v1/dataPackages/0040146690?key=apikey1234",
+  "previousVersionUrl": "https://api.os.uk/downloads/v1/dataPackages/0040146690/versions/6852392?key=apikey1234",
+  "downloads": [
+    {
+      "fileName": "6870746-Order_Details.txt",
+      "url": "https://api.os.uk/downloads/v1/dataPackages/0040146690/versions/6870746/downloads?fileName=6870746-Order_Details.txt&key=apikey1234",
+      "size": 941,
+      "md5": "217aef1e2aa6793124f62f5ccaea970e"
+    },
+    {
+      "fileName": "ABFLGB_CSV.zip",
+      "url": "https://api.os.uk/downloads/v1/dataPackages/0040146690/versions/6870746/downloads?fileName=ABFLGB_CSV.zip&key=apikey1234",
+      "size": 5329516822,
+      "md5": "002c0b68afe1cfabb237a7c1f044314c"
+    }
+  ]
+}

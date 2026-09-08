@@ -1,0 +1,20 @@
+{
+  "id": "6852392",
+  "url": "https://api.os.uk/downloads/v1/dataPackages/0040146690/versions/6852392?key=apikey1234",
+  "createdOn": "2026-06-25",
+  "reason": "UPDATE",
+  "supplyType": "Full",
+  "productVersion": "E128 June 2026 Update",
+  "format": "CSV",
+  "dataPackageUrl": "https://api.os.uk/downloads/v1/dataPackages/0040146690?key=apikey1234",
+  "previousVersionUrl": "https://api.os.uk/downloads/v1/dataPackages/0040146690/versions/6833995?key=apikey1234",
+  "nextVersionUrl": "https://api.os.uk/downloads/v1/dataPackages/0040146690/versions/6870746?key=apikey1234",
+  "downloads": [
+    {
+      "fileName": "ABFLGB_CSV.zip",
+      "url": "https://api.os.uk/downloads/v1/dataPackages/0040146690/versions/6852392/downloads?fileName=ABFLGB_CSV.zip&key=apikey1234",
+      "size": 5323223058,
+      "md5": "053049b408ab07a423babb8129fd142c"
+    }
+  ]
+}

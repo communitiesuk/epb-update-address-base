@@ -1,26 +1,22 @@
 {
   "name": "ebp-address-base-updater",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Node scripts to update the address base copy the Energy Performance of Buildings Register service uses",
-  "main": "index.js",
+  "main": "address-base.js",
   "directories": {
     "lib": "lib"
   },
   "engines": {
-    "node": "~22"
+    "node": ">= 24"
   },
   "scripts": {
-    "fmt": "npx standard --fix",
-    "lint": "npx standard",
-    "test": "jest --forceExit",
-    "setup-db": "node setup-db.js",
-    "setup-db-local": "node setup-db.js",
-    "update-address-base": "npm ci && node address-base.js update -i -v",
-    "update-address-base-auto": "npm ci && node address-base.js update",
-    "update-address-base-specific-version": "npm ci && node address-base.js update -s",
-    "full-address-base-reload": "npm ci && node address-base.js update -f",
-    "specify-address-base-version": "npm ci && node address-base.js specify-version",
-    "get-address-base-version": "npm ci && node address-base.js get-version",
+    "fmt": "prettier . --write",
+    "lint": "prettier . --check && eslint",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' NODE_NO_WARNINGS=1 jest",
+    "update-address-base-auto": "npm ci && node address-base.mjs update",
+    "full-address-base-reload": "node address-base.mjs install",
+    "get-address-base-version": "node address-base.mjs versions",
+    "setup-db": "node tests/support/setup-database.mjs",
     "build": "echo \"DO NOT DELETE - I am here as a placeholder to help prevent the Paketo builder from complaining that I'm missing, see EPBR-3174\""
   },
   "repository": {
@@ -34,44 +30,22 @@
   },
   "homepage": "https://github.com/communitiesuk/epb-update-address-base#readme",
   "devDependencies": {
-    "fetch-mock-jest": "^1.5.1",
-    "jest": "^28.1.0",
-    "jest-jasmine2": "^30.4.2",
-    "standard": "^16.0.4"
-  },
-  "standard": {
-    "globals": [
-      "afterAll",
-      "afterEach",
-      "beforeAll",
-      "beforeEach",
-      "describe",
-      "expect",
-      "it",
-      "jest",
-      "test"
-    ]
+    "@eslint/js": "^10.0.1",
+    "dedent": "^1.7.2",
+    "eslint": "^10.9.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jest": "^29.16.6",
+    "globals": "^17.12.0",
+    "jest": "^30.5.1",
+    "msw": "^2.15.0",
+    "prettier": "^3.9.6"
   },
   "dependencies": {
-    "@sentry/node": "^6.18.1",
-    "@sentry/tracing": "^6.18.1",
-    "async-memoize-one": "^1.2.1",
-    "commander": "^9.0.0",
-    "csv-stream": "^0.2.0",
-    "dotenv": "^17.4.2",
-    "node-fetch": "^2.6.7",
-    "got": "^11",
+    "commander": "^15.0.0",
+    "csv-parse": "^7.0.2",
+    "debug": "^4.4.3",
     "pg": "^8.13.0",
-    "pg-promise": "^12.7.0",
-    "unzipper": "kinolaev/node-unzipper#patch-1"
-  },
-  "overrides": {
-    "fetch-mock": "^10"
-  },
-  "jest": {
-    "setupFiles": [
-      "<rootDir>/tests/setUpEnv.js"
-    ],
-    "testRunner": "jest-jasmine2"
+    "pg-promise": "^12.7.1",
+    "unzipper": "^0.12.5"
   }
 }
