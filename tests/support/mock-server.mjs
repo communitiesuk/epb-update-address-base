@@ -4,7 +4,7 @@ import { Readable } from 'node:stream';
 import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
 
-const server = setupServer(
+export const server = setupServer(
   http.get('*/downloads/v1/dataPackages', ({ request }) => {
     const url = new URL(request.url);
     if (url.searchParams.get('key') !== 'apikey1234') {
@@ -59,6 +59,6 @@ const server = setupServer(
   ),
 );
 
-beforeAll(() => server.listen());
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());

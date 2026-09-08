@@ -84,3 +84,11 @@ The API key for the OS account
 #### `DEBUG`
 
 This project uses [debug](https://github.com/debug-js/debug). For a verbose output set `DEBUG=address-base:*`
+
+#### `EPB_TEAM_SLACK_URL`
+
+Slack WebHook for sending alerts to Slack. Only sent for updates.
+
+#### `STAGE`
+
+The environment. Required to send the Slack message.
