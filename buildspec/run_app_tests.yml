@@ -20,5 +20,5 @@ phases:
       - until docker run --rm --link postgres-test:pg $POSTGRES_IMAGE_URL:latest pg_isready -U postgres -h pg; do sleep 1; done
   build:
     commands:
-      - export TEST_DATABASE_URL="postgresql://postgres:postgres@127.0.0.1/epb_test"
+      - export TEST_DATABASE_URL="postgresql://postgres:$DOCKER_POSTGRES_PASSWORD@127.0.0.1/epb_test"
       - npm run test
