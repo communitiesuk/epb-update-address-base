@@ -306,7 +306,7 @@ describe('update', () => {
     });
 
     expect(slackMessages).toEqual([
-      '📍 Updated test Address Base to version: AddressBase Plus 03.07.2026',
+      '[test] 📍 Updated Address Base to version: AddressBase Plus 03.07.2026',
     ]);
   });
 
@@ -438,7 +438,7 @@ describe('update', () => {
     });
 
     expect(slackMessages).toEqual([
-      '🔥 Updating test Address Base errored: status: 403: {"message":"Invalid ApiKey"}',
+      '[test] 🔥 Updating Address Base has errored: status: 403: {"message":"Invalid ApiKey"}',
     ]);
     expect(exitSpy).toHaveBeenCalledWith(1);
   });
