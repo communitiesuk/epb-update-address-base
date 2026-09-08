@@ -7,17 +7,17 @@
     "lib": "lib"
   },
   "engines": {
-    "node": ">= 24"
+    "node": "^24"
   },
   "scripts": {
     "fmt": "prettier . --write",
     "lint": "prettier . --check && eslint",
     "test": "NODE_OPTIONS='--experimental-vm-modules' NODE_NO_WARNINGS=1 jest",
-    "update-address-base-auto": "npm ci && node address-base.mjs update",
+    "update-address-base-auto": "node address-base.mjs update",
     "full-address-base-reload": "node address-base.mjs install",
     "get-address-base-version": "node address-base.mjs versions",
     "setup-db": "node tests/support/setup-database.mjs",
-    "build": "echo \"DO NOT DELETE - I am here as a placeholder to help prevent the Paketo builder from complaining that I'm missing, see EPBR-3174\""
+    "start": ": &&"
   },
   "repository": {
     "type": "git",
