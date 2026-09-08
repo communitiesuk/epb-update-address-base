@@ -77,6 +77,10 @@ The database connection string. Defaults to a local database called `epb`
 
 The test database connection string. Defaults to a local database called `epb_test`
 
+#### `APP_ENV`
+
+If present, the database connection will use ssl
+
 #### `OS_DATA_HUB_API_KEY`
 
 The API key for the OS account

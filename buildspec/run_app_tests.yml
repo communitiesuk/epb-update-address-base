@@ -4,8 +4,6 @@ env:
   parameter-store:
     DOCKER_POSTGRES_PASSWORD: 'docker-postgres-password'
     AWS_ACCOUNT_ID: 'account-id'
-  variables:
-    STAGE: 'test'
 
 phases:
   install:
