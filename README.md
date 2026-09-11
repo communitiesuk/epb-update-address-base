@@ -46,6 +46,15 @@ node address-base.mjs update 'E126 April 2026 Update'
 # Test
 npm run lint
 npm test
+
+# Testing the paketo image
+# Build the image
+pack build ebpr-address-base-updater-image --builder paketobuildpacks/ubuntu-noble-builder
+docker run --rm \
+  --entrypoint "launcher" \
+  -e DATABASE_URL=postgresql://postgres@host.docker.internal/epb \
+  -e OS_DATA_HUB_API_KEY=my-api-key \
+  ebpr-address-base-updater-image npm run update-address-base-auto
 ```
 
 ## Database setup

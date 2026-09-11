@@ -17,7 +17,7 @@
     "full-address-base-reload": "node address-base.mjs install",
     "get-address-base-version": "node address-base.mjs versions",
     "setup-db": "node tests/support/setup-database.mjs",
-    "start": ": &&"
+    "start": "echo 'DO NOT REMOVE. Required by Paketo to enable the node entrypoint' | cat > /dev/null &&"
   },
   "repository": {
     "type": "git",
