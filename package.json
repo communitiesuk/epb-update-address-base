@@ -37,7 +37,7 @@
     "eslint-plugin-jest": "^29.16.11",
     "globals": "^17.13.0",
     "jest": "^30.5.2",
-    "msw": "^3.0.2",
+    "msw": "^3.0.3",
     "prettier": "^3.9.10"
   },
   "dependencies": {
