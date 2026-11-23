@@ -38,7 +38,7 @@
     "globals": "^17.14.0",
     "jest": "^30.5.2",
     "msw": "^3.0.6",
-    "prettier": "^3.9.10"
+    "prettier": "^3.10.1"
   },
   "dependencies": {
     "commander": "^15.1.0",
